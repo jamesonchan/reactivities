@@ -6,12 +6,13 @@ import {
   Label,
   Loader,
   Message,
-  Segment
+  Segment,
 } from "semantic-ui-react";
 import { useAppSelector } from "../../../hooks/typedReduxHook";
 import deleteActivity from "../../../redux/actions/activityActions/activityDeleteAction";
 import loadActivityList from "../../../redux/actions/activityActions/activityListAction";
 import viewActivity from "../../../redux/actions/activityActions/activityViewAction";
+import { ActivityActionType } from "../../../redux/actionTypes/activityActionType";
 
 const ActivityList = ({}) => {
   const dispatch = useDispatch();
@@ -19,13 +20,19 @@ const ActivityList = ({}) => {
     (state) => state.activityList
   );
 
-  const { success } = useAppSelector((state) => state.activityDelete);
+  const { success } = useAppSelector(
+    (state) => state.activityDelete
+  );
 
   useEffect(() => {
+    dispatch(loadActivityList());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch({ type: ActivityActionType.ACTIVITY_DELETE_RESET });
     if (success) {
       dispatch(loadActivityList());
     }
-    dispatch(loadActivityList());
   }, [dispatch, success]);
 
   const viewActivityHandler = (id: string) => {

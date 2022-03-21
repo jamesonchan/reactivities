@@ -1,6 +1,10 @@
 import axios from "axios";
 import { Dispatch } from "react";
-import { ActivityAction, ActivityActionType } from "../../actionTypes/activityActionType";
+import { dateFormat } from "../../../utils/dateFormat";
+import {
+  ActivityAction,
+  ActivityActionType,
+} from "../../actionTypes/activityActionType";
 
 const loadActivityList = () => async (dispatch: Dispatch<ActivityAction>) => {
   try {
@@ -9,9 +13,12 @@ const loadActivityList = () => async (dispatch: Dispatch<ActivityAction>) => {
     });
 
     const { data } = await axios.get<Activity[]>("/api/activities");
+    // change date format
+    const activities = dateFormat(data);
+
     dispatch({
       type: ActivityActionType.ACTIVITY_LIST_SUCCESS,
-      payload: data,
+      payload: activities,
     });
   } catch (error: any) {
     dispatch({

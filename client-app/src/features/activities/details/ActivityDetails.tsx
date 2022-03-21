@@ -10,6 +10,7 @@ const ActivitiesDetails = () => {
   const { activity, error, loading } = useAppSelector(
     (state) => state.activityView
   );
+  const { formOpen } = useAppSelector((state) => state.formOpen);
 
   const cancelViewActivity = () => {
     dispatch({ type: ActivityActionType.ACTIVITY_VIEW_RESET });
@@ -27,7 +28,7 @@ const ActivitiesDetails = () => {
             <p>{error}</p>
           </Message>
         </>
-      ) : activity ? (
+      ) : activity && !formOpen ? (
         <Card fluid>
           <Loader active={loading} />
           <Image src={`/assets/categoryImages/${activity.category}.jpg`} />

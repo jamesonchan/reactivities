@@ -6,13 +6,19 @@ import { closeForm } from "../../../redux/actions/formActions/formOpenAction";
 import { v4 as uuid } from "uuid";
 import createActivity from "../../../redux/actions/activityActions/activityCreateAction";
 import loadActivityList from "../../../redux/actions/activityActions/activityListAction";
+import { ActivityActionType } from "../../../redux/actionTypes/activityActionType";
+import editActivity from "../../../redux/actions/activityActions/activityEditAction";
 
 const ActivityForm = () => {
   const dispatch = useDispatch();
   const { activity: selectedActivity } = useAppSelector(
     (state) => state.activityView
   );
-  const { success } = useAppSelector((state) => state.activityCreate);
+
+  const { success, loading } = useAppSelector((state) => state.activityCreate);
+  const { success: successEdit, loading: loadingEdit } = useAppSelector(
+    (state) => state.activityEdit
+  );
   const initialState = selectedActivity ?? {
     id: "",
     title: "",
@@ -24,7 +30,9 @@ const ActivityForm = () => {
   };
   const [activity, setActivity] = useState<Activity>(initialState);
 
+
   useEffect(() => {
+    dispatch({ type: ActivityActionType.ACTIVITY_CREATE_RESET });
     if (success) {
       dispatch(loadActivityList());
     }
@@ -49,9 +57,8 @@ const ActivityForm = () => {
     e.preventDefault();
     if (!selectedActivity) {
       dispatch(createActivity(activity));
-      dispatch(closeForm());
-    }else{
-      // dispatch edit activity
+    } else {
+      dispatch(editActivity(activity));
     }
   };
 
@@ -79,6 +86,7 @@ const ActivityForm = () => {
         <Form.Input
           placeholder="Date"
           name="date"
+          type="date"
           value={activity.date}
           onChange={handleChange}
         />
@@ -94,7 +102,13 @@ const ActivityForm = () => {
           value={activity.venue}
           onChange={handleChange}
         />
-        <Button floated="right" positive type="submit" content="Submit" />
+        <Button
+          floated="right"
+          positive
+          type="submit"
+          content="Submit"
+          loading={loading || loadingEdit}
+        />
         <Button
           floated="right"
           type="button"

@@ -13,9 +13,13 @@ const viewActivity =
       });
 
       const { data } = await axios.get<Activity>(`/api/activities/${id}`);
+      
+      // change data format
+      let activity: Activity = { ...data, date: data.date.split("T")[0] };
+
       dispatch({
         type: ActivityActionType.ACTIVITY_VIEW_SUCCESS,
-        payload: data,
+        payload: activity,
       });
     } catch (error: any) {
       dispatch({

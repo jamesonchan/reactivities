@@ -5,20 +5,27 @@ import {
   ActivityActionType,
 } from "../../actionTypes/activityActionType";
 
-const createActivity =
+const editActivity =
   (activity: Activity) => async (dispatch: Dispatch<ActivityAction>) => {
     try {
       dispatch({
-        type: ActivityActionType.ACTIVITY_CREATE_REQUEST,
+        type: ActivityActionType.ACTIVITY_EDIT_REQUEST,
       });
 
-      await axios.post(`/api/activities`, activity);
+      const config = {
+        headers: {
+          "Context-Type": "application/json",
+        },
+      };
+
+      await axios.put(`/api/activities/${activity.id}`, activity, config);
+
       dispatch({
-        type: ActivityActionType.ACTIVITY_CREATE_SUCCESS,
+        type: ActivityActionType.ACTIVITY_EDIT_SUCCESS,
       });
     } catch (error: any) {
       dispatch({
-        type: ActivityActionType.ACTIVITY_CREATE_FAIL,
+        type: ActivityActionType.ACTIVITY_EDIT_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
@@ -27,4 +34,4 @@ const createActivity =
     }
   };
 
-export default createActivity;
+export default editActivity;

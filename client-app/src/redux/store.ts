@@ -3,6 +3,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import activityCreateReducer from "./reducers/activityReducers/activityCreateReducer";
 import activityDeleteReducer from "./reducers/activityReducers/activityDeleteReducer";
+import activityEditReducer from "./reducers/activityReducers/activityEditReducer";
 import activityListReducer from "./reducers/activityReducers/activityListReducer";
 import activityViewReducer from "./reducers/activityReducers/activityViewReducer";
 import formOpenReducer from "./reducers/formReducers/formOpenReducer";
@@ -12,6 +13,7 @@ const reducer = combineReducers({
   activityView: activityViewReducer,
   activityDelete: activityDeleteReducer,
   activityCreate: activityCreateReducer,
+  activityEdit: activityEditReducer,
   formOpen: formOpenReducer,
 });
 

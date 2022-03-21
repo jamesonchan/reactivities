@@ -3,34 +3,34 @@ import {
   ActivityActionType,
 } from "../../actionTypes/activityActionType";
 
-interface ActivityDeleteState {
+interface ActivityEditState {
   success: boolean;
   loading: boolean;
   error: string | null;
 }
 
-const initalState: ActivityDeleteState = {
+const initalState: ActivityEditState = {
   success: false,
   loading: false,
   error: null,
 };
 
-const activityDeleteReducer = (
-  state: ActivityDeleteState = initalState,
+const activityEditReducer = (
+  state: ActivityEditState = initalState,
   action: ActivityAction
-): ActivityDeleteState => {
+): ActivityEditState => {
   switch (action.type) {
-    case ActivityActionType.ACTIVITY_DELETE_REQUEST:
+    case ActivityActionType.ACTIVITY_EDIT_REQUEST:
       return { ...state, loading: true };
-    case ActivityActionType.ACTIVITY_DELETE_SUCCESS:
+    case ActivityActionType.ACTIVITY_EDIT_SUCCESS:
       return { ...state, loading: false, success: true };
-    case ActivityActionType.ACTIVITY_DELETE_FAIL:
+    case ActivityActionType.ACTIVITY_EDIT_FAIL:
       return { ...state, loading: false, error: action.payload };
-    case ActivityActionType.ACTIVITY_DELETE_RESET:
+    case ActivityActionType.ACTIVITY_EDIT_RESET:
       return { ...state, success: false };
     default:
       return state;
   }
 };
 
-export default activityDeleteReducer;
+export default activityEditReducer;
