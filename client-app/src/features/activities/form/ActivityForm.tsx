@@ -14,7 +14,6 @@ const ActivityForm = () => {
   const { activity: selectedActivity } = useAppSelector(
     (state) => state.activityView
   );
-
   const { success, loading } = useAppSelector((state) => state.activityCreate);
   const { success: successEdit, loading: loadingEdit } = useAppSelector(
     (state) => state.activityEdit
@@ -30,13 +29,12 @@ const ActivityForm = () => {
   };
   const [activity, setActivity] = useState<Activity>(initialState);
 
-
   useEffect(() => {
     dispatch({ type: ActivityActionType.ACTIVITY_CREATE_RESET });
-    if (success) {
+    if (success || successEdit) {
       dispatch(loadActivityList());
     }
-  }, [dispatch, success]);
+  }, [dispatch, success,successEdit]);
 
   const formCloseHandler = () => {
     dispatch(closeForm());
@@ -58,7 +56,7 @@ const ActivityForm = () => {
     if (!selectedActivity) {
       dispatch(createActivity(activity));
     } else {
-      dispatch(editActivity(activity));
+      dispatch(editActivity({ ...activity, id: selectedActivity.id }));
     }
   };
 
