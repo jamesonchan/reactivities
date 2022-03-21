@@ -1,5 +1,5 @@
-import axios from "axios";
 import { Dispatch } from "react";
+import agent from "../../../app/api/agent";
 import {
   ActivityAction,
   ActivityActionType,
@@ -12,7 +12,7 @@ const deleteActivity =
         type: ActivityActionType.ACTIVITY_DELETE_REQUEST,
       });
 
-      await axios.delete(`/api/activities/${id}`);
+      await agent.Activities.delete(id);
       dispatch({
         type: ActivityActionType.ACTIVITY_DELETE_SUCCESS,
       });

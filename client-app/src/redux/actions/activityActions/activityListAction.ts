@@ -1,5 +1,5 @@
-import axios from "axios";
 import { Dispatch } from "react";
+import agent from "../../../app/api/agent";
 import { dateFormat } from "../../../utils/dateFormat";
 import {
   ActivityAction,
@@ -12,7 +12,7 @@ const loadActivityList = () => async (dispatch: Dispatch<ActivityAction>) => {
       type: ActivityActionType.ACTIVITY_LIST_REQUEST,
     });
 
-    const { data } = await axios.get<Activity[]>("/api/activities");
+    const { data } = await agent.Activities.list();
     // change date format
     const activities = dateFormat(data);
 

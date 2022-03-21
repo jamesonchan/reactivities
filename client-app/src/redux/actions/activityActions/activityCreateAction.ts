@@ -1,5 +1,5 @@
-import axios from "axios";
 import { Dispatch } from "react";
+import agent from "../../../app/api/agent";
 import {
   ActivityAction,
   ActivityActionType,
@@ -12,7 +12,7 @@ const createActivity =
         type: ActivityActionType.ACTIVITY_CREATE_REQUEST,
       });
 
-      await axios.post(`/api/activities`, activity);
+      await agent.Activities.create(activity);
       dispatch({
         type: ActivityActionType.ACTIVITY_CREATE_SUCCESS,
       });

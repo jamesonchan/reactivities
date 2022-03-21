@@ -1,5 +1,5 @@
-import axios from "axios";
 import { Dispatch } from "react";
+import agent from "../../../app/api/agent";
 import {
   ActivityAction,
   ActivityActionType,
@@ -12,9 +12,9 @@ const viewActivity =
         type: ActivityActionType.ACTIVITY_VIEW_REQUEST,
       });
 
-      const { data } = await axios.get<Activity>(`/api/activities/${id}`);
-      
-      // change data format
+      const { data } = await agent.Activities.detail(id);
+
+      // change date format
       let activity: Activity = { ...data, date: data.date.split("T")[0] };
 
       dispatch({

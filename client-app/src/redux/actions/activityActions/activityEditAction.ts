@@ -1,5 +1,5 @@
-import axios from "axios";
 import { Dispatch } from "react";
+import agent from "../../../app/api/agent";
 import {
   ActivityAction,
   ActivityActionType,
@@ -12,13 +12,7 @@ const editActivity =
         type: ActivityActionType.ACTIVITY_EDIT_REQUEST,
       });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      await axios.put(`/api/activities/${activity.id}`, activity, config);
+      await agent.Activities.edit(activity);
 
       dispatch({
         type: ActivityActionType.ACTIVITY_EDIT_SUCCESS,
