@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { Container } from "semantic-ui-react";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
 import ActivityDetails from "../../features/activities/details/ActivityDetails";
@@ -9,9 +9,12 @@ import HomePage from "../../features/home/HomePage";
 import NavBar from "./NavBar";
 
 function App() {
+  const location = useLocation();
+  const path = location.pathname;
   return (
     <>
-      <NavBar />
+      {/* when on homepage navbar disappears */}
+      {path !== "/" ? <NavBar /> : <></>}
       <Container style={{ marginTop: "7em" }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
