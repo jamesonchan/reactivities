@@ -1,7 +1,7 @@
 import { ActivityAction, ActivityActionType } from "../../actionTypes/activityActionType";
 
 interface ActivitiesState {
-  activities: Activity[];
+  activities:[string, Activity[]][];
   loading: boolean;
   error: string | null;
 }

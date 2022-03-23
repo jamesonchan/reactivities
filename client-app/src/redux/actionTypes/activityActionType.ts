@@ -31,7 +31,7 @@ interface ActivityListRequestAction {
 
 interface ActivityListSuccessAction {
   type: ActivityActionType.ACTIVITY_LIST_SUCCESS;
-  payload: Activity[];
+  payload: [string, Activity[]][];
 }
 
 interface ActivityListFailAction {

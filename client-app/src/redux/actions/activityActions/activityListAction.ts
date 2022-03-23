@@ -1,6 +1,7 @@
 import { Dispatch } from "react";
 import agent from "../../../app/api/agent";
 import { dateFormat } from "../../../utils/dateFormat";
+import { groupActivitiesByDate } from "../../../utils/groupActivitiesByDate";
 import {
   ActivityAction,
   ActivityActionType,
@@ -14,11 +15,12 @@ const loadActivityList = () => async (dispatch: Dispatch<ActivityAction>) => {
 
     const { data } = await agent.Activities.list();
     // change date format
-    const activities = dateFormat(data);
+    const dateFormatActivities = dateFormat(data);
+    const groupedActivities = groupActivitiesByDate(dateFormatActivities);
 
     dispatch({
       type: ActivityActionType.ACTIVITY_LIST_SUCCESS,
-      payload: activities,
+      payload: groupedActivities,
     });
   } catch (error: any) {
     dispatch({
