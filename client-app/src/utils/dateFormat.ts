@@ -6,3 +6,8 @@ export const dateFormat = (data: Activity[]) => {
   });
   return activties;
 };
+
+export const sortDate = (data: Activity[]) => {
+  data.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+  return data;
+};
