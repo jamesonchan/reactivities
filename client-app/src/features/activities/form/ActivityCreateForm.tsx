@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Form, Segment } from "semantic-ui-react";
-import { useAppSelector } from "../../../hooks/typedReduxHook";
-import { closeForm } from "../../../redux/actions/formActions/formOpenAction";
 import { v4 as uuid } from "uuid";
+import { useAppSelector } from "../../../hooks/typedReduxHook";
 import createActivity from "../../../redux/actions/activityActions/activityCreateAction";
 import loadActivityList from "../../../redux/actions/activityActions/activityListAction";
+import viewActivity from "../../../redux/actions/activityActions/activityViewAction";
 import { ActivityActionType } from "../../../redux/actionTypes/activityActionType";
-import editActivity from "../../../redux/actions/activityActions/activityEditAction";
 
-const ActivityForm = () => {
+const ActivityCreateForm = () => {
   const dispatch = useDispatch();
-  const { activity: selectedActivity } = useAppSelector(
-    (state) => state.activityView
-  );
-  const { success, loading } = useAppSelector((state) => state.activityCreate);
-  const { success: successEdit, loading: loadingEdit } = useAppSelector(
-    (state) => state.activityEdit
-  );
-  const initialState = selectedActivity ?? {
+  const navigate = useNavigate();
+  const initialState = {
     id: "",
     title: "",
     date: "",
@@ -28,17 +22,16 @@ const ActivityForm = () => {
     venue: "",
   };
   const [activity, setActivity] = useState<Activity>(initialState);
+  const { success: successCreate, loading: loadingCreate } = useAppSelector(
+    (state) => state.activityCreate
+  );
 
   useEffect(() => {
     dispatch({ type: ActivityActionType.ACTIVITY_CREATE_RESET });
-    if (success || successEdit) {
+    if (successCreate) {
       dispatch(loadActivityList());
     }
-  }, [dispatch, success,successEdit]);
-
-  const formCloseHandler = () => {
-    dispatch(closeForm());
-  };
+  }, [dispatch, successCreate]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -53,10 +46,10 @@ const ActivityForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!selectedActivity) {
+    if (activity) {
       dispatch(createActivity(activity));
-    } else {
-      dispatch(editActivity({ ...activity, id: selectedActivity.id }));
+      dispatch(viewActivity(activity.id));
+      navigate(`/activities/${activity.id}`);
     }
   };
 
@@ -105,17 +98,18 @@ const ActivityForm = () => {
           positive
           type="submit"
           content="Submit"
-          loading={loading || loadingEdit}
+          loading={loadingCreate}
         />
         <Button
           floated="right"
           type="button"
           content="Cancel"
-          onClick={formCloseHandler}
+          as={Link}
+          to="/activities"
         />
       </Form>
     </Segment>
   );
 };
 
-export default ActivityForm;
+export default ActivityCreateForm;

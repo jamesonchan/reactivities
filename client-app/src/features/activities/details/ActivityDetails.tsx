@@ -1,24 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Button, Card, Icon, Image, Loader, Message } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Button, Card, Image, Loader, Message } from "semantic-ui-react";
 import { useAppSelector } from "../../../hooks/typedReduxHook";
-import { openForm } from "../../../redux/actions/formActions/formOpenAction";
-import { ActivityActionType } from "../../../redux/actionTypes/activityActionType";
 
-const ActivitiesDetails = () => {
-  const dispatch = useDispatch();
+const ActivityDetails = () => {
   const { activity, error, loading } = useAppSelector(
     (state) => state.activityView
   );
-  const { formOpen } = useAppSelector((state) => state.formOpen);
 
-  const cancelViewActivity = () => {
-    dispatch({ type: ActivityActionType.ACTIVITY_VIEW_RESET });
-  };
-
-  const formOpenHandler = () => {
-    dispatch(openForm());
-  };
   return (
     <>
       {error ? (
@@ -28,7 +17,7 @@ const ActivitiesDetails = () => {
             <p>{error}</p>
           </Message>
         </>
-      ) : activity && !formOpen ? (
+      ) : activity ? (
         <Card fluid>
           <Loader active={loading} />
           <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
@@ -45,13 +34,15 @@ const ActivitiesDetails = () => {
                 basic
                 color="blue"
                 content="Edit"
-                onClick={formOpenHandler}
+                as={Link}
+                to={`/manage/${activity.id}`}
               />
               <Button
                 basic
                 color="grey"
                 content="Cancel"
-                onClick={cancelViewActivity}
+                as={Link}
+                to="/activities"
               />
             </Button.Group>
           </Card.Content>
@@ -63,4 +54,4 @@ const ActivitiesDetails = () => {
   );
 };
 
-export default ActivitiesDetails;
+export default ActivityDetails;

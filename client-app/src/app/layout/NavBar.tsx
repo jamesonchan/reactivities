@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import {  NavLink } from "react-router-dom";
 import { Button, Container, Menu } from "semantic-ui-react";
 import { openForm } from "../../redux/actions/formActions/formOpenAction";
 
@@ -11,7 +12,7 @@ const NavBar = () => {
   return (
     <Menu inverted fixed="top">
       <Container>
-        <Menu.Item>
+        <Menu.Item as={NavLink} to="/">
           <img
             src="/assets/logo.png"
             alt="logo"
@@ -19,8 +20,8 @@ const NavBar = () => {
           />
           Reactivities
         </Menu.Item>
-        <Menu.Item name="reactivities" />
-        <Menu.Item>
+        <Menu.Item name="Activities" as={NavLink} to='/activities' />
+        <Menu.Item as={NavLink} to='/createActivity'>
           <Button
             positive
             content="Create Activity"

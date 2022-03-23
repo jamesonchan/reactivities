@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   Button,
   Item,
@@ -20,9 +21,7 @@ const ActivityList = ({}) => {
     (state) => state.activityList
   );
 
-  const { success } = useAppSelector(
-    (state) => state.activityDelete
-  );
+  const { success } = useAppSelector((state) => state.activityDelete);
 
   useEffect(() => {
     dispatch(loadActivityList());
@@ -68,6 +67,8 @@ const ActivityList = ({}) => {
               </Item.Description>
               <Item.Extra>
                 <Button
+                  as={Link}
+                  to={`/activities/${activity.id}`}
                   floated="right"
                   content="View"
                   color="blue"
