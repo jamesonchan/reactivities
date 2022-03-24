@@ -35,7 +35,6 @@ const ActivityList = ({}) => {
     dispatch(deleteActivity(id));
   };
 
-
   return (
     <>
       <Loader active={loading} />
@@ -44,18 +43,14 @@ const ActivityList = ({}) => {
           <Header sub color="teal">
             {group}
           </Header>
-          <Segment>
-            <Item.Group divided>
-              {activities.map((activity) => (
-                <ActivityListItem
-                  key={activity.id}
-                  activity={activity}
-                  viewActivityHandler={viewActivityHandler}
-                  deleteActivityHandler={deleteActivityHandler}
-                />
-              ))}
-            </Item.Group>
-          </Segment>
+          {activities.map((activity) => (
+            <ActivityListItem
+              key={activity.id}
+              activity={activity}
+              viewActivityHandler={viewActivityHandler}
+              deleteActivityHandler={deleteActivityHandler}
+            />
+          ))}
         </Fragment>
       ))}
     </>

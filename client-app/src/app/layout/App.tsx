@@ -15,9 +15,11 @@ function App() {
     <>
       {/* when on homepage navbar disappears */}
       {path !== "/" ? <NavBar /> : <></>}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
       <Container style={{ marginTop: "7em" }}>
         <Routes>
-          <Route path="/" element={<HomePage />} />
           <Route path="/activities" element={<ActivityDashboard />} />
           <Route path="/activities/:id" element={<ActivityDetails />} />
           <Route path="/manage/:id" element={<ActivityEditForm />} />

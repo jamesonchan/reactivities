@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button, Card, Image, Loader, Message } from "semantic-ui-react";
+import { Grid, Message } from "semantic-ui-react";
 import { useAppSelector } from "../../../hooks/typedReduxHook";
+import ActivityDetailChat from "./ActivityDetailChat";
+import ActivityDetailHeader from "./ActivityDetailHeader";
+import ActivityDetailInfo from "./ActivityDetailInfo";
+import ActivityDetailSidebar from "./ActivityDetailSidebar";
 
 const ActivityDetails = () => {
   const { activity, error, loading } = useAppSelector(
@@ -18,35 +21,16 @@ const ActivityDetails = () => {
           </Message>
         </>
       ) : activity ? (
-        <Card fluid>
-          <Loader active={loading} />
-          <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
-          <Card.Content>
-            <Card.Header>{activity.title}</Card.Header>
-            <Card.Meta>
-              <span>{activity.date}</span>
-            </Card.Meta>
-            <Card.Description>{activity.description}</Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <Button.Group widths="2">
-              <Button
-                basic
-                color="blue"
-                content="Edit"
-                as={Link}
-                to={`/manage/${activity.id}`}
-              />
-              <Button
-                basic
-                color="grey"
-                content="Cancel"
-                as={Link}
-                to="/activities"
-              />
-            </Button.Group>
-          </Card.Content>
-        </Card>
+        <Grid>
+          <Grid.Column width={10}>
+            <ActivityDetailHeader activity={activity} />
+            <ActivityDetailInfo activity={activity} />
+            <ActivityDetailChat />
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <ActivityDetailSidebar />
+          </Grid.Column>
+        </Grid>
       ) : (
         <></>
       )}
