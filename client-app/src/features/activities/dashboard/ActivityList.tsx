@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Header, Item, Loader, Message, Segment } from "semantic-ui-react";
+import { Header, Loader } from "semantic-ui-react";
 import { useAppSelector } from "../../../hooks/typedReduxHook";
 import deleteActivity from "../../../redux/actions/activityActions/activityDeleteAction";
 import loadActivityList from "../../../redux/actions/activityActions/activityListAction";
