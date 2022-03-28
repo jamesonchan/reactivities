@@ -1,13 +1,13 @@
 export const dateFormat = (data: Activity[]) => {
   let activties: Activity[] = [];
   data.forEach((activty) => {
-    activty.date = activty.date.split("T")[0];
+    activty.date = new Date(activty.date!);
     activties.push(activty);
   });
   return activties;
 };
 
 export const sortDate = (data: Activity[]) => {
-  data.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+  data.sort((a, b) => b.date!.getTime() - a.date!.getTime());
   return data;
 };

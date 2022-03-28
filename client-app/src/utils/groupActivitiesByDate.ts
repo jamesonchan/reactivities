@@ -1,7 +1,9 @@
+import { format } from "date-fns";
+
 export const groupActivitiesByDate = (activitiesByDate: Activity[]) => {
   return Object.entries(
     activitiesByDate.reduce((activities, activity) => {
-      const date = activity.date;
+      const date = format(activity.date!, "dd MMM yyyy");
       activities[date] = activities[date]
         ? [...activities[date], activity]
         : [activity];

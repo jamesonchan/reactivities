@@ -24,12 +24,12 @@ function App() {
       </Routes>
       <Container style={{ marginTop: "7em" }}>
         <Routes>
+          {path !== "/" && <Route path="*" element={<NotFound />} />}
           <Route path="/activities" element={<ActivityDashboard />} />
           <Route path="/activities/:id" element={<ActivityDetails />} />
           <Route path="/manage/:id" element={<ActivityEditForm />} />
           <Route path="/createActivity" element={<ActivityCreateForm />} />
           <Route path="/errors" element={<TestErrors />} />
-          <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
     </>

@@ -15,7 +15,7 @@ const viewActivity =
       const { data } = await agent.Activities.detail(id);
 
       // change date format
-      let activity: Activity = { ...data, date: data.date.split("T")[0] };
+      let activity: Activity = { ...data, date: new Date(data.date!) };
 
       dispatch({
         type: ActivityActionType.ACTIVITY_VIEW_SUCCESS,

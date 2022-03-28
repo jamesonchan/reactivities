@@ -2,14 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./app/layout/App";
 import { Provider } from "react-redux";
-import {  unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
+import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import store from "./redux/store";
+import { createBrowserHistory } from "history";
 import "react-calendar/dist/Calendar.css";
 import "./app/layout/styles.css";
-import 'react-toastify/dist/ReactToastify.min.css'
-import { createBrowserHistory } from "history";
+import "react-toastify/dist/ReactToastify.min.css";
+import 'react-datepicker/dist/react-datepicker.css'
 
-export const history = createBrowserHistory()
+export const history = createBrowserHistory();
 
 ReactDOM.render(
   <React.StrictMode>
